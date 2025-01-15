@@ -51,6 +51,19 @@ mi_enemigo = personaje("Vergil", 70, 30, 70, 100)
 mi_personaje.atacar(mi_enemigo)
 mi_enemigo.imprimir_atributos()
 
+# Antes del ataque
+print("Antes del ataque:")
+mi_personaje.imprimir_atributos()
+mi_enemigo.imprimir_atributos()
+
+# Ataque
+print("\nDurante el ataque:")
+mi_personaje.atacar(mi_enemigo)
+
+# Después del ataque
+print("\nDespués del ataque:")
+mi_personaje.imprimir_atributos()
+mi_enemigo.imprimir_atributos()
 
 #print(mi_personaje.dañar(mi_enemigo))
 # mi_personaje.subir_nivel(10, 1, 5)
