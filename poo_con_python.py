@@ -43,27 +43,32 @@ class personaje:
         print(self.nombre, "ha realizado", daño, "puntos de daño a", enemigo.nombre)
         print("vida de ", enemigo.nombre, "es ", enemigo.vida)
         
+class Guerrero(personaje):
+    pass
+tlatuani = Guerrero("Apocalipto", 50, 70, 30, 100)
+
+
 
 #Variable del constructo vacío de la clase
-mi_personaje = personaje("Dante", 100, 3, 70, 100)
-mi_personaje.imprimir_atributos()
-mi_enemigo = personaje("Vergil", 70, 30, 70, 100)
-mi_personaje.atacar(mi_enemigo)
-mi_enemigo.imprimir_atributos()
+# mi_personaje = personaje("Dante", 100, 3, 70, 100)
+# mi_personaje.imprimir_atributos()
+# mi_enemigo = personaje("Vergil", 70, 30, 70, 100)
+# mi_personaje.atacar(mi_enemigo)
+# mi_enemigo.imprimir_atributos()
 
-# Antes del ataque
-print("Antes del ataque:")
-mi_personaje.imprimir_atributos()
-mi_enemigo.imprimir_atributos()
+# # Antes del ataque
+# print("Antes del ataque:")
+# mi_personaje.imprimir_atributos()
+# mi_enemigo.imprimir_atributos()
 
-# Ataque
-print("\nDurante el ataque:")
-mi_personaje.atacar(mi_enemigo)
+# # Ataque
+# print("\nDurante el ataque:")
+# mi_personaje.atacar(mi_enemigo)
 
-# Después del ataque
-print("\nDespués del ataque:")
-mi_personaje.imprimir_atributos()
-mi_enemigo.imprimir_atributos()
+# # Después del ataque
+# print("\nDespués del ataque:")
+# mi_personaje.imprimir_atributos()
+# mi_enemigo.imprimir_atributos()
 
 #print(mi_personaje.dañar(mi_enemigo))
 # mi_personaje.subir_nivel(10, 1, 5)
@@ -84,6 +89,7 @@ mi_enemigo.imprimir_atributos()
 # print("La inteligencia del personaje es", mi_personaje.inteligencia)
 # print("La defensa del personaje es", mi_personaje.defensa)
 # print("La vida del personaje es", mi_personaje.vida)
+
 
 
 
