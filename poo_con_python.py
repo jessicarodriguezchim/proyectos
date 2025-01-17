@@ -44,8 +44,84 @@ class personaje:
         print("vida de ", enemigo.nombre, "es ", enemigo.vida)
         
 class Guerrero(personaje):
-    pass
-tlatuani = Guerrero("Apocalipto", 50, 70, 30, 100)
+    #Sobre escribir constructor de la clase padre
+    def __init__(self, nombre, fuerza, inteligencia, defensa, vida, espada):
+        super().__init__(nombre, fuerza, inteligencia, defensa, vida) #el super ya contiene el self
+        self.espada = espada
+
+    #sobre escribir metodo de impresion
+    def imprimir_atributos(self):
+        super().imprimir_atributos()
+        print("-Espada:", self.espada)
+        
+    def elegir_arma(self):
+        opcion = int (input("Elige un arma: \n(1) Lanza de obsidiana, daño 10\n(2) Lanza de chaya, daño 6\n>>>>>"))
+        if opcion == 1:
+            self.espada = 10
+        elif opcion ==2:
+            self.espada = 6
+        else:
+            print("Error, opción no válida")
+            #Regresar a dar otra opcion
+            self.elegir_arma()
+            
+    #sobre escribir cálculo de daño
+    def daño(self, enemigo):
+        return self.fuerza*self.espada - enemigo.defensa
+
+#mago
+class Mago(personaje):
+    #Sobre escribir constructor de la clase padre
+    def __init__(self, nombre, fuerza, inteligencia, defensa, vida, libro):
+        super().__init__(nombre, fuerza, inteligencia, defensa, vida) #el super ya contiene el self
+        self.libro = libro
+
+    #sobre escribir metodo de impresion
+    def imprimir_atributos(self):
+        super().imprimir_atributos()
+        print("-Libro:", self.libro)
+        
+    def elegir_arma(self):
+        opcion = int (input("Elige un arma: \n(1) Hechizos de programación, daño 10\n(2) Recetario de chaya, daño 6\n>>>>>"))
+        if opcion == 1:
+            self.libro = 10
+        elif opcion ==2:
+            self.libro = 6
+        else:
+            print("Error, opción no válida")
+            #Regresar a dar otra opcion
+            self.elegir_arma()
+            
+    #sobre escribir cálculo de daño
+    def daño(self, enemigo):
+        return self.inteligencia*self.libro - enemigo.defensa
+            
+            
+            
+            
+michael_jackson=personaje("Mickael Jackson", 20, 15, 10, 100)           
+tlatuani = Guerrero("Apocalipto", 50, 70, 30, 100, 5)
+merlin = Mago("Merlin", 20, 15, 10, 100, 5)
+
+
+#tlatuani.elegir_arma()
+#merlin.elegir_arma()
+#tlatuani.imprimir_atributos()
+
+#imprimir atributos antes de la tragedia
+michael_jackson.imprimir_atributos()
+merlin.imprimir_atributos()
+tlatuani.imprimir_atributos()
+
+#Ataques masivos
+michael_jackson.atacar(tlatuani)
+tlatuani.atacar(merlin)
+merlin.atacar(michael_jackson)
+
+#imprimir atributos despues de la tragedia
+michael_jackson.imprimir_atributos()
+merlin.imprimir_atributos()
+tlatuani.imprimir_atributos()
 
 
 
