@@ -45,9 +45,17 @@ class personaje:
         
 class Guerrero(personaje):
     #Sobre escribir constructor de la clase padre
-    def __init__(self, nombre, fuerza, inteligencia, defensa, vida, espada):
+    def __init__(self, nombre, fuerza, inteligencia, defensa, vida, espada, escudo):
         super().__init__(nombre, fuerza, inteligencia, defensa, vida) #el super ya contiene el self
         self.espada = espada
+        self.escudo = escudo
+        self.vida_escudo = defensa * escudo
+        self.defensa += escudo
+        self.inventario_pocimas = {
+            "vida": 1,  # Cantidad inicial de pócimas de vida
+            "fuerza": 1,  # Cantidad inicial de pócimas de fuerza
+            "inteligencia": 1  # Cantidad inicial de pócimas de inteligencia
+        }
 
     #sobre escribir metodo de impresion
     def imprimir_atributos(self):
@@ -68,6 +76,26 @@ class Guerrero(personaje):
     #sobre escribir cálculo de daño
     def daño(self, enemigo):
         return self.fuerza*self.espada - enemigo.defensa
+    
+    def combate(self, danio):
+        if danio < self.vida_escudo:
+            print("El daño fue absorbido")
+            #vida del escudo debe disminuir menos danio
+            self.vida_escudo -= danio
+            #imprime la nueva vida del escudo
+            print("la nueva vida del escudo es: ", self.vida_escudo)
+        if danio > self.vida_escudo:
+            print("El escucudo esta destruido")
+            # te falta ver si vida_escudo es positivo,
+        if self.vida_escudo == 
+            #    si es positivo, restarlo hasta dejarlo en 0 y reducir los puntos de vida
+            #    del guerrero con el danio restante
+        if danio == self.vida_escudo:
+            print("El escudo desaparecerá, y el guerrero esta desprotegido para futuros ataques.")
+            self.vida_escudo = 0
+        #enemigo.vida = enemigo.vida - daño
+        #print(self.nombre, "ha realizado", daño, "puntos de daño a", enemigo.nombre)
+        #print("vida de ", enemigo.nombre, "es ", enemigo.vida)
 
 #mago
 class Mago(personaje):
@@ -75,11 +103,16 @@ class Mago(personaje):
     def __init__(self, nombre, fuerza, inteligencia, defensa, vida, libro):
         super().__init__(nombre, fuerza, inteligencia, defensa, vida) #el super ya contiene el self
         self.libro = libro
+        self.inventario_pocimas = {
+            "vida": 1,  # Cantidad inicial de pócimas de vida
+            "fuerza": 1,  # Cantidad inicial de pócimas de fuerza
+            "inteligencia": 1  # Cantidad inicial de pócimas de inteligencia
+        }
 
     #sobre escribir metodo de impresion
     def imprimir_atributos(self):
         super().imprimir_atributos()
-        print("-Libro:", self.libro)
+        print("-Valor del libro:", self.libro)
         
     def elegir_arma(self):
         opcion = int (input("Elige un arma: \n(1) Hechizos de programación, daño 10\n(2) Recetario de chaya, daño 6\n>>>>>"))
@@ -95,33 +128,114 @@ class Mago(personaje):
     #sobre escribir cálculo de daño
     def daño(self, enemigo):
         return self.inteligencia*self.libro - enemigo.defensa
+ 
+    def usar_pocima(self):
+        print("Elige la pócima que deseas usar: \n (1) Pócima de vida (restaura 20 puntos de vida). \n (2) Pócima de fuerza (aumenta fuerza un 50%). \n (3) Pócima de inteligencia (aumenta inteligencia un 50%).")
+    
+        opcion = int(input(">>>>>>>>> "))
+        
+        if opcion == 1:
+            if self.inventario_pocimas["vida"] > 0:
+                self.vida += 20
+                self.inventario_pocimas["vida"] -= 1
+                print(f"{self.nombre} usó una pócima de vida. Nueva vida: {self.vida}")
+            else:
+                print("No tienes pócimas de vida disponibles.")
+        elif opcion == 2:
+            if self.inventario_pocimas["fuerza"] > 0:
+                incremento = self.fuerza * 0.5
+                self.fuerza += incremento
+                self.inventario_pocimas["fuerza"] -= 1
+                print(f"{self.nombre} usó una pócima de fuerza. Nueva fuerza: {self.fuerza}")
+            else:
+                print("No tienes pócimas de fuerza disponibles.")
+        elif opcion == 3:
+            if self.inventario_pocimas["inteligencia"] > 0:
+                incremento = self.inteligencia * 0.5
+                self.inteligencia += incremento
+                self.inventario_pocimas["inteligencia"] -= 1
+                print(f"{self.nombre} usó una pócima de inteligencia. Nueva inteligencia: {self.inteligencia}")
+            else:
+                print("No tienes pócimas de inteligencia disponibles.")
+        else:
+            print("Valor inválido, intente nuevamente.")
+            # Lo regresamos a elegir
+            self.usar_pocima()    
+        
+    #escoger navaja
+    def escoger_libro(self):
+        opcion = int(input("escoge el libro de la sabiduría: \n (1) El principito, daño 10. \n (2) Crepúsculo, daño -10. \n >>>>>>>>"))
+        if(opcion == 1):
+            self.libro = 10
+        elif(opcion == 2):
+            self.libro = 6
+        else:
+            print("Valor inválido, intente nuevamente")
+            #lo regresamos a elegir
+            self.escoger_libro()
+    
+#guerrero1 = Guerrero("Tlatuani", 10, 10, 10, 50, 2, 2)
+#guerrero2 = Mago("Merlin", 8, 4, 4, 40, 3)
+
+#guerrero1.vida_escudo()
+
+# guerrero2.atacar(guerrero1)           
             
-            
-            
-            
+#puesto en comentario el 24/01/2025                
 michael_jackson=personaje("Mickael Jackson", 20, 15, 10, 100)           
-tlatuani = Guerrero("Apocalipto", 50, 70, 30, 100, 5)
+tlatuani = Guerrero("Tlatuani", 50, 70, 30, 100, 5, 10)
 merlin = Mago("Merlin", 20, 15, 10, 100, 5)
 
+#danio = fuerza del guerrero menos defensa del enemigo
+#caso 1) danio es menor que vida escudo
+#        vida_escudo del guerrero = 30 * 10 = 300
+#       --> el danio fue absorvido
+tlatuani = Guerrero("Tlatuani", 50, 70, 30, 100, 5, 10)
+#tlatuani.combate(299)
 
-#tlatuani.elegir_arma()
-#merlin.elegir_arma()
-#tlatuani.imprimir_atributos()
 
+#caso 2) danio es mayor que vida escudo
+#        vida_escudo del 300
+#        --> el escudo esta destruido
+#tlatuani.combate(350)
+
+
+
+#caso 3) danio es igual que vida escudo
+#        vida_escudo del guerrero = 300
+#        --> el escudo desaparecera
+tlatuani.combate(300)
+
+
+
+merlin.usar_pocima()
+merlin.imprimir_atributos()
+
+tlatuani.imprimir_atributos()
+
+
+tlatuani.elegir_arma()
+merlin.elegir_arma()
+tlatuani.imprimir_atributos()
+
+#24/01/25
 #imprimir atributos antes de la tragedia
 michael_jackson.imprimir_atributos()
 merlin.imprimir_atributos()
 tlatuani.imprimir_atributos()
 
+#24/01/25
 #Ataques masivos
 michael_jackson.atacar(tlatuani)
 tlatuani.atacar(merlin)
 merlin.atacar(michael_jackson)
 
+#24/01/25
 #imprimir atributos despues de la tragedia
 michael_jackson.imprimir_atributos()
 merlin.imprimir_atributos()
 tlatuani.imprimir_atributos()
+
 
 
 
