@@ -84,13 +84,22 @@ class Guerrero(personaje):
             self.vida_escudo -= danio
             #imprime la nueva vida del escudo
             print("la nueva vida del escudo es: ", self.vida_escudo)
-        if danio > self.vida_escudo:
-            print("El escucudo esta destruido")
+            
+        elif danio > self.vida_escudo:
+             # Si el daño recibido es mayor que la vida del escudo:
             # te falta ver si vida_escudo es positivo,
-        if self.vida_escudo == 
+            if danio > self.vida_escudo: 
             #    si es positivo, restarlo hasta dejarlo en 0 y reducir los puntos de vida
+           #El escudo será destruido,
+             print("Escudo destruido")
             #    del guerrero con el danio restante
-        if danio == self.vida_escudo:
+            # y el daño restante se aplicará a los puntos de vida del guerrero.
+            danio_restante = danio - self.vida_escudo
+            self.vida_escudo = 0
+            self.vida = self.vida - danio_restante 
+            print("la nueva vida del guerrero es: ", self.vida)
+            
+        elif danio == self.vida_escudo:
             print("El escudo desaparecerá, y el guerrero esta desprotegido para futuros ataques.")
             self.vida_escudo = 0
         #enemigo.vida = enemigo.vida - daño
@@ -188,10 +197,11 @@ merlin = Mago("Merlin", 20, 15, 10, 100, 5)
 
 #danio = fuerza del guerrero menos defensa del enemigo
 #caso 1) danio es menor que vida escudo
-#        vida_escudo del guerrero = 30 * 10 = 300
+#    vida_escudo del guerrero = 30 * 10 = 300
 #       --> el danio fue absorvido
-tlatuani = Guerrero("Tlatuani", 50, 70, 30, 100, 5, 10)
-#tlatuani.combate(299)
+tlatuani = Guerrero("Tlatuani", 50, 70, 5, 100, 5, 2)
+tlatuani.combate(7)
+tlatuani.combate(8)
 
 
 #caso 2) danio es mayor que vida escudo
@@ -204,7 +214,7 @@ tlatuani = Guerrero("Tlatuani", 50, 70, 30, 100, 5, 10)
 #caso 3) danio es igual que vida escudo
 #        vida_escudo del guerrero = 300
 #        --> el escudo desaparecera
-tlatuani.combate(300)
+#tlatuani.combate(300)
 
 
 
